@@ -14,7 +14,11 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
     let res = response.data
 
-    if(res.code === 200) return response
+    if(res.code === 200)
+        return response
+    else if(res.code === 101) {
+        Element.Message.error("密码不正确！", {duration: 3*1000})
+    }
     else {
         Element.Message.error("登录失败！", {duration: 3*1000})
     }

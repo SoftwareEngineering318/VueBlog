@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       activeIndex: '/',
-      isLogin: true
+      isLogin: false
     };
   },
   methods: {

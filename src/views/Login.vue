@@ -12,7 +12,7 @@
               <el-input v-model="loginForm.stdID"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-              <el-input v-model="loginForm.password"></el-input>
+              <el-input type="password" v-model="loginForm.password"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="submitForm('loginForm')">立即登录</el-button>
@@ -70,7 +70,14 @@ export default {
         callback();
       }
     };
-    let validatePass = (rule, value, callback) => {
+    let validatePass0 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'));
+      } else if(value.length<6 || value.length>16){
+        callback(new Error('密码长度6~16个字符'));
+      }
+    };
+    let validatePass1 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
       } else if(value.length<6 || value.length>16){
@@ -116,7 +123,7 @@ export default {
           { validator: checkName, trigger: 'blur' }
         ],
         password: [
-          { validator: validatePass, trigger: 'blur' }
+          { validator: validatePass0, trigger: 'blur' }
         ]
       },
       conRules: {
@@ -131,7 +138,7 @@ export default {
       regRules: {
         stdID: [],
         password: [
-          { validator: validatePass, trigger: 'blur' }
+          { validator: validatePass1, trigger: 'blur' }
         ],
         confirmPwd: [
           { validator: validatePass2, trigger: 'blur' }
@@ -145,7 +152,8 @@ export default {
         if (valid) {
           if(formName === 'conForm') {
             //alert('验证码正确！');
-            this.isChecked = true;
+            this.regForm.stdID = this.conForm.stdID
+            this.isChecked = true
           } else if(formName === 'loginForm') {
             this.$axios.post('', this.loginForm).then(res => {  //这里填写后端的地址
               const jwt = res.headers['authorization']
@@ -156,8 +164,10 @@ export default {
               this.$store.commit("SET_TOKEN", jwt)
               this.$store.commit("SET_ISLOGIN", isLogin)
               this.$store.commit("SET_USERINFO", userInfo)
+
+              //登录后跳转到首页
+              this.backToHome()
             })
-            this.backToHome()
           } else {
             this.$axios.post('', this.regForm).then(res => {
 
