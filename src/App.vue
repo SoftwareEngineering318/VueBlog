@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header></Header>
-    <router-view/>
+    <Header class="menu"></Header>
+    <router-view style="z-index: 0"/>
   </div>
 </template>
 
@@ -17,5 +17,10 @@ export default {
 * {
   padding: 0;
   margin: 0;
+}
+.menu {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 </style>

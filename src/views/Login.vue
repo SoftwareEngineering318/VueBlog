@@ -116,7 +116,8 @@ export default {
       regForm: {
         stdID: '',
         password: '',
-        confirmPwd: ''
+        confirmPwd: '',
+        //regDate: ''
       },
       loginRules: {
         stdID: [
@@ -155,7 +156,7 @@ export default {
             this.regForm.stdID = this.conForm.stdID
             this.isChecked = true
           } else if(formName === 'loginForm') {
-            this.$axios.post('', this.loginForm).then(res => {  //这里填写后端的地址
+            this.$axios.post('/login', this.loginForm).then(res => {  //这里填写后端的地址
               const jwt = res.headers['authorization']
               const isLogin = true
               const userInfo = res.data.data
@@ -169,8 +170,8 @@ export default {
               this.backToHome()
             })
           } else {
-            this.$axios.post('', this.regForm).then(res => {
-
+            this.$axios.post('/register', this.regForm).then(res => {
+              console.log(res)
             })
           }
         } else {

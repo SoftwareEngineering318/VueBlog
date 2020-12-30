@@ -11,6 +11,7 @@ import NotAllowedToSay from "@/views/NotAllowedToSay";
 import EditManager from "@/views/EditManager";
 import DeletedPost from "@/views/DeletedPost";
 import Applies from "@/views/Applies";
+import BlogDetail from "@/views/BlogDetail";
 
 Vue.use(VueRouter)
 
@@ -69,6 +70,11 @@ const routes = [
     path: '/applies',
     name: 'Applies',
     component: Applies
+  },
+  {
+    path: '/blogDetail/:blogId',
+    name: 'BlogDetail',
+    component: BlogDetail
   }
   //{
     //path: '/about',
