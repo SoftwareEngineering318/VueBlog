@@ -13,7 +13,7 @@
           <el-input v-model="addForm.title"></el-input>
         </el-form-item>
         <el-form-item label="贴子概述" prop="theme">
-          <el-input type="textarea" v-model="addForm.theme"></el-input>
+          <el-input type="textarea" v-model="addForm.theme" autosize></el-input>
         </el-form-item>
         <el-form-item label="贴子内容" prop="content">
           <mavon-editor v-model="addForm.content"></mavon-editor>
@@ -78,7 +78,9 @@
             <el-timeline-item :timestamp="blog.time" placement="top" v-for="blog in blogs" :key="blog">
               <el-card class="box-card" style="border-radius: 20px">
                 <div slot="header" class="clearfix">
-                  <span style="color: dimgray">{{ blog.ownerName+'('+blog.ownerID+')'}}</span>
+                  <router-link :to="{name: 'UserInfo', params: {userID: blog.ownerID}}">
+                    <span style="color: dimgray">{{ blog.ownerName+'('+blog.ownerID+')'}}</span>
+                  </router-link>
                   <p style="float: right">现有{{ blog.count }}人参与讨论</p>
                 </div>
                 <router-link :to="{name: 'BlogDetail', params: {blogId: blog.id}}">
@@ -231,6 +233,7 @@ export default {
     }
   },
   created() {
+    this.loginOrNot = !this.$store.getters.getIsLogin
     if(this.loginOrNot) {
       this.page(1)
     } else {
@@ -244,7 +247,6 @@ export default {
     }
   },
   mounted() {
-    this.loginOrNot = this.$store.getters.getIsLogin
     this.currentTime();
   },
   // 销毁定时器
