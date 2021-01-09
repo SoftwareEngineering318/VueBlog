@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Home from "@/views/Home";
-import EditInfo from "@/views/EditInfo";
 import PostRecord from "@/views/PostRecord";
 import MyFollowed from "@/views/MyFollowed";
 import MyFollow from "@/views/MyFollow";
@@ -12,6 +11,7 @@ import EditManager from "@/views/EditManager";
 import DeletedPost from "@/views/DeletedPost";
 import Applies from "@/views/Applies";
 import BlogDetail from "@/views/BlogDetail";
+import UserInfo from "@/views/UserInfo";
 
 Vue.use(VueRouter)
 
@@ -25,11 +25,6 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
-  },
-  {
-    path: '/editInfo',
-    name: 'EditInfo',
-    component: EditInfo
   },
   {
     path: '/postRecord',
@@ -75,6 +70,11 @@ const routes = [
     path: '/blogDetail/:blogId',
     name: 'BlogDetail',
     component: BlogDetail
+  },
+  {
+    path: '/userInfo/:userID',
+    name: 'UserInfo',
+    component: UserInfo
   }
   //{
     //path: '/about',

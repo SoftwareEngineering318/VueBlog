@@ -17,7 +17,7 @@
       </el-menu-item>
       <el-submenu index="1" :disabled="!isLogin">
         <template slot="title"><i class="el-icon-user"></i>我的</template>
-        <el-menu-item index="/editInfo"><i class="el-icon-edit"></i>修改资料</el-menu-item>
+        <el-menu-item :index="info"><i class="el-icon-info"></i>我的资料</el-menu-item>
         <el-menu-item index="/postRecord"><i class="el-icon-document"></i>发言记录</el-menu-item>
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-s-custom"></i>我的关注</template>
@@ -47,6 +47,7 @@ export default {
   name: "Header",
   data() {
     return {
+      info: '/userInfo/1854304',
       activeIndex: '/',
       isLogin: false,
       username: 'username'
