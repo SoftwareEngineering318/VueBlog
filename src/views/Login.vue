@@ -75,6 +75,8 @@ export default {
         callback(new Error('请输入密码'));
       } else if(value.length<6 || value.length>16){
         callback(new Error('密码长度6~16个字符'));
+      } else {
+        callback();
       }
     };
     let validatePass1 = (rule, value, callback) => {
@@ -172,6 +174,8 @@ export default {
           } else {
             this.$axios.post('/register', this.regForm).then(res => {
               console.log(res)
+              this.isLogin = true
+              this.loginForm.stdID = this.regForm.stdID
             })
           }
         } else {
@@ -190,6 +194,7 @@ export default {
     backToHome() {
       this.$router.push("/");
     },
+    //定时器，用于限制发送验证码的频率
     sendConfirmCode() {
       if (!this.canClick) return;  //改动的是这两行代码
       this.buttonType = 'info';

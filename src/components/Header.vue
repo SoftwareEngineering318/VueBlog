@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       activeIndex: '/',
-      isLogin: this.$store.getters.getIsLogin,
+      isLogin: false,
       username: 'username'
     };
   },
@@ -67,8 +67,11 @@ export default {
       })
     }
   },
-  created() {
-    if(this.$store.getters.getUserInfo.username) {
+  mounted() {
+    //console.log(this.$store.getters.getIsLogin)
+    this.isLogin = !this.$store.getters.getIsLogin
+    console.log(this.isLogin)
+    if(this.isLogin) {
       this.username = this.$store.getters.getUserInfo.username
     }
   }

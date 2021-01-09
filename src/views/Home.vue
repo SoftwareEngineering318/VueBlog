@@ -28,7 +28,7 @@
     <el-container style="height: 690px; border: 1px solid #eee">
       <!--侧边栏，卡片-->
       <el-aside width="290px" style="background-color: #ffffff">
-        <el-card class="box-card">
+        <el-card class="box-card" style="border-radius: 15px;">
           <div slot="header" class="clearfix">
             <span style="font-size: 25px;font-family: 新宋体">您好！今天是：</span>
           </div>
@@ -48,7 +48,7 @@
           </div>
         </el-card>
         <div><br/></div>
-        <el-card :body-style="{ padding: '0px' }">
+        <el-card :body-style="{ padding: '0px' }" style="border-radius: 15px;">
           <img src="../assets/images/TJScene.jpg" class="image">
           <div style="padding: 14px;">
             <span>想与同济校友畅所欲言吗？</span>
@@ -61,7 +61,7 @@
           </div>
         </el-card>
         <div><br/></div>
-        <el-card class="box-card">
+        <el-card class="box-card" style="border-radius: 15px;">
           <div slot="header" class="clearfix">
             <span style="font-size: 20px">本吧信息</span>
             <el-button style="float: right; padding: 5px 0" type="text">查看详情</el-button>
@@ -76,9 +76,10 @@
         <el-main v-loading="loading">
           <el-timeline class="blogs">
             <el-timeline-item :timestamp="blog.time" placement="top" v-for="blog in blogs" :key="blog">
-              <el-card class="box-card">
+              <el-card class="box-card" style="border-radius: 20px">
                 <div slot="header" class="clearfix">
-                  <span style="color: deepskyblue">{{ blog.ownerName+'('+blog.ownerID+')'}}</span>
+                  <span style="color: dimgray">{{ blog.ownerName+'('+blog.ownerID+')'}}</span>
+                  <p style="float: right">现有{{ blog.count }}人参与讨论</p>
                 </div>
                 <router-link :to="{name: 'BlogDetail', params: {blogId: blog.id}}">
                   <h2>{{ blog.title }}</h2>
@@ -109,7 +110,7 @@ export default {
   name: "Home",
   data() {
     return {
-      loginOrNot: this.$store.getters.getIsLogin,
+      loginOrNot: false,
       yourLevel: 0, //等级=积分除以100向下取整
       yourScore: 0, //积分
       isChecked: false, //是否签到
@@ -132,7 +133,8 @@ export default {
           ownerName: '晨雨未歇',
           theme: '今天真的很高兴',
           time: '2020-12-29',
-          isTop: false
+          isTop: false,
+          count: 2
         }
       ],
       addForm: {
@@ -242,6 +244,7 @@ export default {
     }
   },
   mounted() {
+    this.loginOrNot = this.$store.getters.getIsLogin
     this.currentTime();
   },
   // 销毁定时器
@@ -254,6 +257,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: royalblue;
+}
 .blogs {
   width: 700px;
   margin: 0 auto;
